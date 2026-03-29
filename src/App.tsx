@@ -1,9 +1,41 @@
-import { useState } from 'react'
+import { useEffect, useState } from 'react'
 import {populateCurrencySelect} from '../src/Currencies/Currencies'
 import { convertCurrency } from './CurrencyService/CurrencyService'
-
+import Select from "react-select"
 function App() {
+  
+  type option = {
+    value: string
+    label: React.ReactNode
+  }
+  
+  const [value, setValue] = useState('0,00')
+  const [fromCurrency, setFromCurrency] = useState<option | null>(null)
+  const [toCurrency, setToCurrency] = useState<option | null>(null)
 
+    const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+       setValue(e.target.value);
+  };
+  
+  let currencies = populateCurrencySelect()
+
+  useEffect(()=> {
+    if(options.length >= 2){
+      setFromCurrency(options[1])
+      setToCurrency(options[2])
+    }
+  }, [])
+
+  
+ const options: option[] = currencies.map((c) => ({
+  value: c.code,
+  label: (
+    <div style={{ display: "flex", gap: "8px" }}>
+      <span className={`fi fi-${c.flag}`}></span>
+      {c.code} - {c.symbol}
+    </div>
+  )
+}))
   return (
       <>
       <div className="container_currency">
@@ -11,22 +43,30 @@ function App() {
          <div className="container">
               <div className="currency_box">
                    <label htmlFor="amount">Amount</label>
-                   <input id="amount" type="text" placeholder="0.00"></input>
+                   <input onChange={handleChange} id="amount" type="text" value={value} placeholder="0.00"></input>
               </div>
               <div className="currency_box">
                   <label htmlFor="from">From</label>
-                  <select id="from"></select> 
+                  <Select id='from' value={fromCurrency} options={options} onChange={(selected)=> setFromCurrency(selected)}/>
               </div>
-          <button id="swap" type="button">
-             <i className="fa-solid fa-right-left"></i>
-          </button>
+               <button id="swap" type="button">
+                 <i className="fa-solid fa-right-left"></i>
+              </button>
        <div className="currency_box">
          <label htmlFor="to">To</label>
-         <select id="to"></select> 
+          <Select id='from' value={toCurrency} options={options}  onChange={(selected) => setToCurrency(selected)}/>
       </div>
+
+
+     <div className="box_button">
+      <button id="convert" type="button">
+        <i className="fa-solid fa-rotate-right"></i>
+      </button>
+    </div>
+
     </div>
       </div>
-      </>
+  </>
   )
 }
 

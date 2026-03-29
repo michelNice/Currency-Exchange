@@ -1,20 +1,21 @@
 export function populateCurrencySelect(){
     const currencyList = {
-    USD:{name:'United States dollar',symbol: '$',value:1.0},
-    EUR: { name: "Euro", symbol: "€", value: 0.92 },
-    GBP: { name: "Pound sterling", symbol: "£", value: 0.80 },
-    BRL: { name: "Brazilian Real", symbol: "R$", value: 5.00 },
-    JPY: { name: "Japanese Yen", symbol: "¥", value: 150.00 },
-    CAD: { name: "Canadian Dollar", symbol: "C$", value: 1.35 },
-    AUD: { name: "Australian Dollar", symbol: "A$", value: 1.50 },
-    CHF: { name: "Swiss Franc", symbol: "CHF", value: 0.90 },
-    CNY: { name: "Chinese Yuan", symbol: "¥", value: 7.20 },
-    RUB: { name: "Russian Ruble", symbol: "₽", value: 90.00 }
-    }
+      USD:{name:'United States dollar',symbol:'$',flag:'us'},
+      EUR:{name:'Euro',symbol:'€',flag:'eu'},
+      GBP:{name:'Pound sterling',symbol:'£',flag:'gb'},
+      BRL:{name:'Brazilian Real',symbol:'R$',flag:'br'},
+      JPY:{name:'Japanese Yen',symbol:'¥',flag:'jp'},
+      CAD:{name:'Canadian Dollar',symbol:'C$',flag:'ca'},
+      AUD:{name:'Australian Dollar',symbol:'A$',flag:'au'},
+      CHF:{name:'Swiss Franc',symbol:'CHF',flag:'ch'},
+      CNY:{name:'Chinese Yuan',symbol:'¥',flag:'cn'},
+      RUB:{name:'Russian Ruble',symbol:'₽',flag:'ru'}
+  }
      return Object.entries(currencyList).map(([code,currency])=>{
         return {
          code,
-         symbol: currency.symbol
+         symbol: currency.symbol,
+         flag:currency.flag
         }
    })
 }
