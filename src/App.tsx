@@ -3,26 +3,40 @@ import {populateCurrencySelect} from '../src/Currencies/Currencies'
 import { convertCurrency } from './CurrencyService/CurrencyService'
 import Select from "react-select"
 function App() {
-  
   type option = {
     value: string
     label: React.ReactNode
   }
-  
   const [value, setValue] = useState('0,00')
   const [fromCurrency, setFromCurrency] = useState<option | null>(null)
   const [toCurrency, setToCurrency] = useState<option | null>(null)
 
     const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
        setValue(e.target.value);
+
+       const formatter = new Intl.NumberFormat('pt-BR', {
+          minimumFractionDigits:2,
+         maximumFractionDigits:2
+       })
+
+      const digits =  e.target.value.replace(/\D/g, '')
+      const cents = parseInt(digits,10) || 0
+
+      const formatterValeu =  formatter.format(cents / 100)
+
+      setValue(formatterValeu)
   };
-  
+
+  const convertBtn = async()=> {
+
+
+  }
   let currencies = populateCurrencySelect()
 
   useEffect(()=> {
     if(options.length >= 2){
-      setFromCurrency(options[1])
-      setToCurrency(options[2])
+      setFromCurrency(options[0])
+      setToCurrency(options[1])
     }
   }, [])
 
@@ -36,6 +50,9 @@ function App() {
     </div>
   )
 }))
+
+
+
   return (
       <>
       <div className="container_currency">
@@ -49,7 +66,7 @@ function App() {
                   <label htmlFor="from">From</label>
                   <Select id='from' value={fromCurrency} options={options} onChange={(selected)=> setFromCurrency(selected)}/>
               </div>
-               <button id="swap" type="button">
+               <button id="swap" type="button" onClick={convertBtn}>
                  <i className="fa-solid fa-right-left"></i>
               </button>
        <div className="currency_box">
