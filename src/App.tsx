@@ -1,6 +1,6 @@
 import { useEffect, useState } from 'react'
 import {populateCurrencySelect} from '../src/Currencies/Currencies'
-import { convertCurrency } from './CurrencyService/CurrencyService'
+import { CurrencyConverter } from './CurrencyConverter/CurrencyConverter'
 import Select from "react-select"
 function App() {
   type option = {
@@ -10,7 +10,17 @@ function App() {
   const [value, setValue] = useState('0,00')
   const [fromCurrency, setFromCurrency] = useState<option | null>(null)
   const [toCurrency, setToCurrency] = useState<option | null>(null)
+  const [result,setResult] = useState('0,00')
 
+  function formatCurrency(value:number){
+    const formatter = new Intl.NumberFormat('pt-BR', {
+       minimumFractionDigits:2,
+       maximumFractionDigits:2
+    })
+
+    return formatter.format(value)
+  }
+  
     const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
        setValue(e.target.value);
 
@@ -27,10 +37,30 @@ function App() {
       setValue(formatterValeu)
   };
 
-  const convertBtn = async()=> {
 
+  const convertBtn = async()=> {
+   const convertValue = new CurrencyConverter()
+   const amount = Number(value.replace(/\./g, "").replace(",", "."))
+     const Converted = await convertValue.convert({
+      
+        fromCurrency:fromCurrency!.value,
+        toCurrency:toCurrency!.value,
+        amount
+     })
+
+
+      //setResult(Converted.convertedAmount.toString())
+
+      setResult(formatCurrency(Converted.convertedAmount))
+     
+    }
+  const swapBtn = async()=> {
+    setToCurrency(fromCurrency)
+
+    setFromCurrency(toCurrency)
 
   }
+
   let currencies = populateCurrencySelect()
 
   useEffect(()=> {
@@ -51,8 +81,6 @@ function App() {
   )
 }))
 
-
-
   return (
       <>
       <div className="container_currency">
@@ -66,7 +94,7 @@ function App() {
                   <label htmlFor="from">From</label>
                   <Select id='from' value={fromCurrency} options={options} onChange={(selected)=> setFromCurrency(selected)}/>
               </div>
-               <button id="swap" type="button" onClick={convertBtn}>
+               <button id="swap" type="button" onClick={swapBtn}>
                  <i className="fa-solid fa-right-left"></i>
               </button>
        <div className="currency_box">
@@ -76,12 +104,26 @@ function App() {
 
 
      <div className="box_button">
-      <button id="convert" type="button">
+      <button id="convert" type="button" onClick={convertBtn}>
         <i className="fa-solid fa-rotate-right"></i>
       </button>
     </div>
-
     </div>
+      <h2>Exchange result</h2>
+      <div id="error"></div>
+         <div className="box_result">
+
+    <div className="box_item">
+      <div>From: <span id="fromText"></span></div>
+      <div>Original amount: <span id="amountText">0,00</span></div>
+    </div>
+
+    <div className="box_item">
+      <div>To: <span id="toText"></span></div>
+      <div>Result: <span id="result">{result}</span></div>
+    </div>
+
+  </div>
       </div>
   </>
   )

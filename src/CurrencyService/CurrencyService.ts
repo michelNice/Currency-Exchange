@@ -7,7 +7,7 @@ export async function convertCurrency(
 
     const url = "https://api.exchangerate-api.com/v4/latest/";
 
-    const response = await fetch(`${url} ${request.fromCurrency}`)
+    const response = await fetch(`${url}${request.fromCurrency}`)
 
       const data = await response.json()
 
