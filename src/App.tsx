@@ -7,10 +7,14 @@ function App() {
     value: string
     label: React.ReactNode
   }
-  const [value, setValue] = useState('0,00')
+  const [value, setValue] = useState<string>('0,00')
   const [fromCurrency, setFromCurrency] = useState<option | null>(null)
   const [toCurrency, setToCurrency] = useState<option | null>(null)
-  const [result,setResult] = useState('0,00')
+  const [result,setResult] = useState<string>('0,00')
+  const [showAmount,setShowAmount]  = useState<string>('0,00')
+  const [showTo,setShowTo] = useState<string>('')
+  const [showFrom,setShowFrom] = useState<string>('')
+  const [showError, setShowError] = useState<string>('')
 
   function formatCurrency(value:number){
     const formatter = new Intl.NumberFormat('pt-BR', {
@@ -48,20 +52,32 @@ function App() {
         amount
      })
 
-
-      //setResult(Converted.convertedAmount.toString())
-
       setResult(formatCurrency(Converted.convertedAmount))
-     
+      setShowAmount(formatCurrency(Converted.originalAmount))
+      setShowTo(Converted.toCurrency)
+      setShowFrom(Converted.fromCurrency)
+
+
+       
+        if(!Converted.convertedAmount ||isNaN(Converted.convertedAmount)){
+          setShowError('Enter a valid value greater than 0')
+          return 
+        }
+        setShowError('')
+
+        console.log('ERROR:', showError)
+
     }
   const swapBtn = async()=> {
     setToCurrency(fromCurrency)
 
     setFromCurrency(toCurrency)
 
+    
   }
 
   let currencies = populateCurrencySelect()
+
 
   useEffect(()=> {
     if(options.length >= 2){
@@ -79,6 +95,8 @@ function App() {
       {c.code} - {c.symbol}
     </div>
   )
+
+  
 }))
 
   return (
@@ -110,16 +128,16 @@ function App() {
     </div>
     </div>
       <h2>Exchange result</h2>
-      <div id="error"></div>
+       <div className="error">{showError}</div>
          <div className="box_result">
 
     <div className="box_item">
-      <div>From: <span id="fromText"></span></div>
-      <div>Original amount: <span id="amountText">0,00</span></div>
+      <div>From: <span id="fromText">{showFrom}</span></div>
+      <div>Original amount: <span id="amountText">{showAmount}</span></div>
     </div>
-
+   
     <div className="box_item">
-      <div>To: <span id="toText"></span></div>
+      <div>To: <span id="toText">{showTo}</span></div>
       <div>Result: <span id="result">{result}</span></div>
     </div>
 
