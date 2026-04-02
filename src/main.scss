@@ -1,0 +1,213 @@
+$primary: #0F5C66;
+$primaryHover: #0c4a52;
+$textDark: #1f2937;
+$textLight: #6b7280;
+$white: #ffffff;
+$lightGrey: #f3f4f6;
+$border: #e5e7eb;
+$error: #dc2626;
+
+@mixin flexColumn {
+  display: flex;
+  flex-direction: column;
+}
+
+* {
+  box-sizing: border-box;
+}
+
+body {
+  font-family: 'Inter', sans-serif;
+  background: linear-gradient(135deg, #eef2f3, #dfe9f3);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  min-height: 100vh;
+  padding: 1rem;
+  margin: 0;
+}
+
+/* 🔥 SELECT WIDTH FIX */
+.select {
+  width: 100%;
+}
+
+/* 🔥 CARD PRINCIPAL */
+.container_currency {
+  width: 100%;
+  max-width: 900px;
+  padding: 2rem;
+  border-radius: 1rem;
+  background: $white;
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.08);
+
+  h1 {
+    margin-bottom: 1.5rem;
+    color: $textDark;
+    font-size: 1.8rem;
+  }
+
+  h2 {
+    margin-top: 2rem;
+    margin-bottom: 1rem;
+    color: $textDark;
+  }
+}
+
+/* 🔥 CONTAINER INPUTS */
+.container {
+  display: flex;
+  align-items: flex-end;
+  gap: 1rem;
+  padding: 1.5rem;
+  border-radius: 0.75rem;
+  background: $lightGrey;
+  flex-wrap: wrap;
+
+  .currency_box {
+    @include flexColumn();
+    flex: 1;
+    min-width: 150px;
+    width: 100%;
+
+    label {
+      margin-bottom: 0.4rem;
+      font-size: 0.85rem;
+      color: $textLight;
+    }
+
+    input {
+      text-align: right;
+      font-size: 1rem;
+      width: 100%;
+    }
+  }
+}
+
+/* 🔥 ALTURA PADRÃO */
+.container_currency input,
+.container_currency .select__control,
+.container button {
+  height: 50px;
+  border-radius: 0.6rem;
+  font-size: 0.95rem;
+}
+
+/* 🔥 INPUT */
+.container_currency input {
+  padding: 0 14px;
+  border: 1px solid $border;
+  transition: all 0.2s ease;
+
+  &:focus {
+    outline: none;
+    border-color: $primary;
+    box-shadow: 0 0 0 2px rgba(15, 92, 102, 0.15);
+  }
+}
+
+/* 🔥 BOTÕES */
+.container button {
+  background: $primary;
+  color: $white;
+  border: none;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 0 14px;
+  transition: 0.2s;
+
+  &:hover {
+    background: $primaryHover;
+  }
+}
+
+.container button i {
+  font-size: 1rem;
+}
+
+/* 🔥 REACT SELECT FIX */
+.select__control {
+  width: 100% !important;
+  min-height: 50px !important;
+  height: 50px !important;
+  border-radius: 0.6rem !important;
+  border: 1px solid $border !important;
+  box-shadow: none !important;
+  transition: 0.2s;
+
+  &:hover {
+    border-color: $primary;
+  }
+}
+
+.select__control--is-focused {
+  border-color: $primary !important;
+  box-shadow: 0 0 0 2px rgba(15, 92, 102, 0.15) !important;
+}
+
+/* 🔥 CONTAINER INTERNO */
+.select__value-container {
+  height: 48px;
+  padding: 0 10px;
+  display: flex;
+  align-items: center;
+}
+
+/* 🔥 ÍCONES */
+.select__indicators {
+  height: 48px;
+}
+
+/* 🔥 ERROR */
+.error {
+  min-height: 24px;
+  color: $error;
+  margin: 10px 0;
+  font-size: 0.9rem;
+}
+
+/* 🔥 RESULTADO */
+.box_result {
+  display: flex;
+  gap: 1rem;
+  margin-top: 1rem;
+
+  .box_item {
+    flex: 1;
+    padding: 1.2rem;
+    border-radius: 0.75rem;
+    background: $white;
+    border: 1px solid $border;
+    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.05);
+
+    div {
+      margin-bottom: 0.5rem;
+      color: $textDark;
+    }
+
+    span {
+      font-weight: 600;
+      color: $primary;
+    }
+  }
+}
+
+/* 📱 RESPONSIVO */
+@media (max-width: 768px) {
+
+  .container {
+    flex-direction: column;
+    align-items: stretch;
+  }
+
+  .container button {
+    width: 100%;
+  }
+
+  .box_result {
+    flex-direction: column;
+  }
+
+}

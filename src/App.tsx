@@ -21,10 +21,8 @@ function App() {
        minimumFractionDigits:2,
        maximumFractionDigits:2
     })
-
     return formatter.format(value)
   }
-  
     const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
        setValue(e.target.value);
 
@@ -41,9 +39,8 @@ function App() {
       setValue(formatterValeu)
   };
 
-
-  const convertBtn = async()=> {
-   const convertValue = new CurrencyConverter()
+  const handleConvert = async function (){
+     const convertValue = new CurrencyConverter()
    const amount = Number(value.replace(/\./g, "").replace(",", "."))
      const Converted = await convertValue.convert({
       
@@ -57,8 +54,13 @@ function App() {
       setShowTo(Converted.toCurrency)
       setShowFrom(Converted.fromCurrency)
 
+      return Converted
 
-       
+  }
+  const convertBtn = async()=> {
+    
+      const Converted = await  handleConvert()
+
         if(!Converted.convertedAmount ||isNaN(Converted.convertedAmount)){
           setShowError('Enter a valid value greater than 0')
           return 
@@ -73,6 +75,8 @@ function App() {
 
     setFromCurrency(toCurrency)
 
+   handleConvert()
+
     
   }
 
@@ -86,7 +90,6 @@ function App() {
     }
   }, [])
 
-  
  const options: option[] = currencies.map((c) => ({
   value: c.code,
   label: (
@@ -96,7 +99,6 @@ function App() {
     </div>
   )
 
-  
 }))
 
   return (
@@ -110,14 +112,14 @@ function App() {
               </div>
               <div className="currency_box">
                   <label htmlFor="from">From</label>
-                  <Select id='from' value={fromCurrency} options={options} onChange={(selected)=> setFromCurrency(selected)}/>
+                  <Select className="select"  classNamePrefix="select" value={fromCurrency}options={options}onChange={(selected) => setFromCurrency(selected)}/>
               </div>
                <button id="swap" type="button" onClick={swapBtn}>
                  <i className="fa-solid fa-right-left"></i>
               </button>
        <div className="currency_box">
          <label htmlFor="to">To</label>
-          <Select id='from' value={toCurrency} options={options}  onChange={(selected) => setToCurrency(selected)}/>
+         <Select className="select" classNamePrefix="select"value={toCurrency}options={options}onChange={(selected) => setToCurrency(selected)}/>
       </div>
 
 
