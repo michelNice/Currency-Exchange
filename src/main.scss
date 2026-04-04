@@ -11,10 +11,7 @@ $error: #dc2626;
   display: flex;
   flex-direction: column;
 }
-
-* {
-  box-sizing: border-box;
-}
+* {box-sizing: border-box;}
 
 body {
   font-family: 'Inter', sans-serif;
@@ -27,12 +24,9 @@ body {
   margin: 0;
 }
 
-/* 🔥 SELECT WIDTH FIX */
-.select {
-  width: 100%;
-}
+.select {width: 100%;}
 
-/* 🔥 CARD PRINCIPAL */
+
 .container_currency {
   width: 100%;
   max-width: 900px;
@@ -54,7 +48,7 @@ body {
   }
 }
 
-/* 🔥 CONTAINER INPUTS */
+/*  CONTAINER INPUTS */
 .container {
   display: flex;
   align-items: flex-end;
@@ -84,7 +78,7 @@ body {
   }
 }
 
-/* 🔥 ALTURA PADRÃO */
+
 .container_currency input,
 .container_currency .select__control,
 .container button {
@@ -95,7 +89,7 @@ body {
 
 /* 🔥 INPUT */
 .container_currency input {
-  padding: 0 14px;
+  padding: 0 0.875rem;
   border: 1px solid $border;
   transition: all 0.2s ease;
 
@@ -106,7 +100,7 @@ body {
   }
 }
 
-/* 🔥 BOTÕES */
+/*  BOTÕES */
 .container button {
   background: $primary;
   color: $white;
@@ -115,19 +109,14 @@ body {
   display: flex;
   align-items: center;
   justify-content: center;
-  padding: 0 14px;
+  padding: 0 0.875rem;
   transition: 0.2s;
 
-  &:hover {
-    background: $primaryHover;
-  }
+  &:hover {background: $primaryHover;}
 }
 
-.container button i {
-  font-size: 1rem;
-}
-
-/* 🔥 REACT SELECT FIX */
+.container button i {font-size: 1rem;}
+/*  REACT SELECT FIX */
 .select__control {
   width: 100% !important;
   min-height: 50px !important;
@@ -137,38 +126,60 @@ body {
   box-shadow: none !important;
   transition: 0.2s;
 
-  &:hover {
-    border-color: $primary;
-  }
+  border: 1px solid $border !important;
+  box-shadow: none !important;
+
+  &:hover {border-color: $primary;}
 }
+
 
 .select__control--is-focused {
-  border-color: $primary !important;
-  box-shadow: 0 0 0 2px rgba(15, 92, 102, 0.15) !important;
+  border-color: transparent !important;
+  box-shadow: 0 0 0 2px rgba(15, 92, 102, 0.25) !important;
 }
 
-/* 🔥 CONTAINER INTERNO */
+/*  CONTAINER INTERNO */
 .select__value-container {
   height: 48px;
   padding: 0 10px;
   display: flex;
   align-items: center;
 }
+/*  ÍCONES */
+.select__indicators {height: 48px;}
 
-/* 🔥 ÍCONES */
 .select__indicators {
-  height: 48px;
+  border-left: none !important;
 }
 
-/* 🔥 ERROR */
+.select__input input {
+  caret-color: transparent;
+}
+
+.select__value-container {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+}
+
+.select__input {
+  margin: 0;
+  padding: 0;
+}
+
+.select__indicator-separator {
+  display: none !important;
+}
+
+/*  ERROR */
 .error {
   min-height: 24px;
   color: $error;
-  margin: 10px 0;
+  margin: 0.625rem 0;
   font-size: 0.9rem;
 }
 
-/* 🔥 RESULTADO */
+
 .box_result {
   display: flex;
   gap: 1rem;
@@ -186,28 +197,24 @@ body {
       margin-bottom: 0.5rem;
       color: $textDark;
     }
-
     span {
       font-weight: 600;
       color: $primary;
     }
   }
 }
-
-/* 📱 RESPONSIVO */
-@media (max-width: 768px) {
+@media (max-width:48rem) {
 
   .container {
     flex-direction: column;
     align-items: stretch;
   }
+  .container button {width: 100%;}
 
-  .container button {
-    width: 100%;
+  .box_result {flex-direction: column;}
+
+  .container_currency {
+  width: 100%;
+  max-width:100%;
   }
-
-  .box_result {
-    flex-direction: column;
-  }
-
 }

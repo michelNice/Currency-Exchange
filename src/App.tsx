@@ -112,14 +112,14 @@ function App() {
               </div>
               <div className="currency_box">
                   <label htmlFor="from">From</label>
-                  <Select className="select"  classNamePrefix="select" value={fromCurrency}options={options}onChange={(selected) => setFromCurrency(selected)}/>
+                  <Select isSearchable={false} className="select"  classNamePrefix="select" value={fromCurrency}options={options}onChange={(selected) => setFromCurrency(selected)}/>
               </div>
                <button id="swap" type="button" onClick={swapBtn}>
                  <i className="fa-solid fa-right-left"></i>
               </button>
        <div className="currency_box">
          <label htmlFor="to">To</label>
-         <Select className="select" classNamePrefix="select"value={toCurrency}options={options}onChange={(selected) => setToCurrency(selected)}/>
+         <Select   isSearchable={false} className="select" classNamePrefix="select"value={toCurrency}options={options}onChange={(selected) => setToCurrency(selected)}/>
       </div>
 
 
