@@ -1,4 +1,3 @@
-@charset "UTF-8";
 * {
   box-sizing: border-box;
 }
@@ -37,7 +36,6 @@ body {
   color: #1f2937;
 }
 
-/*  CONTAINER INPUTS */
 .container {
   display: flex;
   align-items: flex-end;
@@ -73,7 +71,6 @@ body {
   font-size: 0.95rem;
 }
 
-/* 🔥 INPUT */
 .container_currency input {
   padding: 0 0.875rem;
   border: 1px solid #e5e7eb;
@@ -85,7 +82,6 @@ body {
   box-shadow: 0 0 0 2px rgba(15, 92, 102, 0.15);
 }
 
-/*  BOTÕES */
 .container button {
   background: #0F5C66;
   color: #ffffff;
@@ -100,12 +96,10 @@ body {
 .container button:hover {
   background: #0c4a52;
 }
-
 .container button i {
   font-size: 1rem;
 }
 
-/*  REACT SELECT FIX */
 .select__control {
   width: 100% !important;
   min-height: 50px !important;
@@ -114,8 +108,6 @@ body {
   border: 1px solid #e5e7eb !important;
   box-shadow: none !important;
   transition: 0.2s;
-  border: 1px solid #e5e7eb !important;
-  box-shadow: none !important;
 }
 .select__control:hover {
   border-color: #0F5C66;
@@ -126,43 +118,42 @@ body {
   box-shadow: 0 0 0 2px rgba(15, 92, 102, 0.25) !important;
 }
 
-/*  CONTAINER INTERNO */
 .select__value-container {
   height: 48px;
   padding: 0 10px;
   display: flex;
   align-items: center;
+  gap: 6px;
 }
 
-/*  ÍCONES */
 .select__indicators {
   height: 48px;
-}
-
-.select__indicators {
   border-left: none !important;
-}
-
-.select__input input {
-  caret-color: transparent;
-}
-
-.select__value-container {
-  display: flex;
-  align-items: center;
-  gap: 6px;
 }
 
 .select__input {
   margin: 0;
   padding: 0;
 }
+.select__input input {
+  caret-color: transparent;
+}
 
 .select__indicator-separator {
   display: none !important;
 }
 
-/*  ERROR */
+.select__menu {
+  animation: menuFade 0.2s ease;
+}
+
+.select__option {
+  transition: all 0.15s ease;
+}
+.select__option:hover {
+  transform: translateX(4px);
+}
+
 .error {
   min-height: 24px;
   color: #dc2626;
@@ -174,6 +165,7 @@ body {
   display: flex;
   gap: 1rem;
   margin-top: 1rem;
+  animation: resultFade 0.35s ease;
 }
 .box_result .box_item {
   flex: 1;
@@ -192,6 +184,26 @@ body {
   color: #0F5C66;
 }
 
+@keyframes menuFade {
+  from {
+    opacity: 0;
+    transform: translateY(-6px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+@keyframes resultFade {
+  from {
+    opacity: 0;
+    transform: translateY(10px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
 @media (max-width: 48rem) {
   .container {
     flex-direction: column;
