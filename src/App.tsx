@@ -16,6 +16,13 @@ function App() {
   const [showFrom,setShowFrom] = useState<string>('')
   const [showError, setShowError] = useState<string>('')
 
+   useEffect(() => {
+  if (fromCurrency && toCurrency) {
+    handleConvert()
+  }
+}, [fromCurrency, toCurrency])
+   
+
   function formatCurrency(value:number){
     const formatter = new Intl.NumberFormat('pt-BR', {
        minimumFractionDigits:2,
@@ -71,13 +78,13 @@ function App() {
 
     }
   const swapBtn = async()=> {
-    setToCurrency(fromCurrency)
+     if (!fromCurrency || !toCurrency) return
 
-    setFromCurrency(toCurrency)
+  const newFrom = toCurrency
+  const newTo = fromCurrency
 
-   handleConvert()
-
-    
+  setFromCurrency(newFrom)
+  setToCurrency(newTo)
   }
 
   let currencies = populateCurrencySelect()
