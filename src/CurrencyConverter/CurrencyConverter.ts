@@ -1,7 +1,10 @@
 import { convertCurrency } from '../CurrencyService/CurrencyService'
 import type { CurrencyConversionRequest,CurrencyConversionResult } from '../Types/Types'
+
 export class CurrencyConverter {
+ 
     private history:CurrencyConversionResult[] = []
+
     constructor(){
       const data =   localStorage.getItem("history")
 
@@ -16,6 +19,8 @@ export class CurrencyConverter {
     this.history.push(result)
 
     this.saveHistory()
+
+    console.log(result)
 
     return result
   }

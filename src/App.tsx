@@ -15,13 +15,16 @@ function App() {
   const [showTo,setShowTo] = useState<string>('')
   const [showFrom,setShowFrom] = useState<string>('')
   const [showError, setShowError] = useState<string>('')
+  const [loading, setLoading] = useState(false)
 
+  /*
+  
    useEffect(() => {
   if (fromCurrency && toCurrency) {
     handleConvert()
   }
 }, [fromCurrency, toCurrency])
-   
+  */
 
   function formatCurrency(value:number){
     const formatter = new Intl.NumberFormat('pt-BR', {
@@ -46,24 +49,41 @@ function App() {
       setValue(formatterValeu)
   };
 
-  const handleConvert = async function (){
-     const convertValue = new CurrencyConverter()
-   const amount = Number(value.replace(/\./g, "").replace(",", "."))
-     const Converted = await convertValue.convert({
-      
-        fromCurrency:fromCurrency!.value,
-        toCurrency:toCurrency!.value,
-        amount
-     })
+  const handleConvert = async (from?: option, to?: option) => {
+  const currentFrom = from || fromCurrency
+  const currentTo = to || toCurrency
 
-      setResult(formatCurrency(Converted.convertedAmount))
-      setShowAmount(formatCurrency(Converted.originalAmount))
-      setShowTo(Converted.toCurrency)
-      setShowFrom(Converted.fromCurrency)
+  if (!currentFrom || !currentTo) return
 
-      return Converted
+  try {
+    setLoading(true)
+    const convertValue = new CurrencyConverter()
+    const start = Date.now()
+    const amount = Number(value.replace(/\./g, "").replace(",", "."))
 
+    const Converted = await convertValue.convert({
+      fromCurrency: currentFrom.value,
+      toCurrency: currentTo.value,
+      amount
+    })
+
+    setResult(formatCurrency(Converted.convertedAmount))
+    setShowAmount(formatCurrency(Converted.originalAmount))
+    setShowTo(Converted.toCurrency)
+    setShowFrom(Converted.fromCurrency)
+
+    const elapsed = Date.now() - start
+    if (elapsed < 500) await new Promise(r => setTimeout(r, 500 - elapsed))
+
+    setShowError('')
+    return Converted
+  } catch (error) {
+    setShowError('Ocorreu um erro na conversão')
+    return null
+  } finally {
+    setLoading(false)
   }
+}
   const convertBtn = async()=> {
     
       const Converted = await  handleConvert()
@@ -73,31 +93,22 @@ function App() {
           return 
         }
         setShowError('')
-
-
-
     }
   const swapBtn = async()=> {
      if (!fromCurrency || !toCurrency) return
 
   const newFrom = toCurrency
   const newTo = fromCurrency
-
+    await handleConvert(toCurrency,fromCurrency)
   setFromCurrency(newFrom)
   setToCurrency(newTo)
+
+  
   }
 
   let currencies = populateCurrencySelect()
 
-
-  useEffect(()=> {
-    if(options.length >= 2){
-      setFromCurrency(options[0])
-      setToCurrency(options[1])
-    }
-  }, [])
-
- const options: option[] = currencies.map((c) => ({
+  const options: option[] = currencies.map((c) => ({
   value: c.code,
   label: (
     <div style={{ display: "flex", gap: "8px" }}>
@@ -107,6 +118,16 @@ function App() {
   )
 
 }))
+
+
+  useEffect(()=> {
+    if(options.length >= 2){
+      setFromCurrency(options[0])
+      setToCurrency(options[1])
+    }
+  }, [])
+
+ 
 
   return (
       <>
@@ -131,8 +152,8 @@ function App() {
 
 
      <div className="box_button">
-      <button id="convert" type="button" onClick={convertBtn}>
-        <i className="fa-solid fa-rotate-right"></i>
+      <button id="convert" type="button" onClick={convertBtn} disabled={loading}>
+        {loading ? ( <i className="fa-solid fa-spinner fa-spin"></i>) :  <i className="fa-solid fa-rotate-right"></i>}
       </button>
     </div>
     </div>
