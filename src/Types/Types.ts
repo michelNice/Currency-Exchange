@@ -1,10 +1,10 @@
-export interface currencyConversionRequest{
+export interface CurrencyConversionRequest{
     fromCurrency:string;
     toCurrency:string;
     amount:number;
 }
 
-export interface currencyConversionResult{
+export interface CurrencyConversionResult{
     originalAmount:number;
     convertedAmount:number;
     fromCurrency:string;

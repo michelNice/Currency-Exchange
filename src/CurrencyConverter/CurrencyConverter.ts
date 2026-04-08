@@ -1,18 +1,15 @@
 import { convertCurrency } from '../CurrencyService/CurrencyService'
-import type { currencyConversionRequest,currencyConversionResult } from '../Types/Types'
-
+import type { CurrencyConversionRequest,CurrencyConversionResult } from '../Types/Types'
 export class CurrencyConverter {
- 
-    private history:currencyConversionResult[] = []
-
+    private history:CurrencyConversionResult[] = []
     constructor(){
       const data =   localStorage.getItem("history")
 
       this.history = data ? JSON.parse(data): [];
     }
     async convert(
-    request: currencyConversionRequest
-   ): Promise<currencyConversionResult> {
+    request: CurrencyConversionRequest
+   ): Promise<CurrencyConversionResult> {
 
     const result = await convertCurrency(request)
 
@@ -20,14 +17,12 @@ export class CurrencyConverter {
 
     this.saveHistory()
 
-    console.log(result)
-
     return result
   }
   private saveHistory(){
         localStorage.setItem("history",JSON.stringify(this.history))
   }
-  getHistory():currencyConversionResult[]{
+  getHistory():CurrencyConversionResult[]{
         return  this.history
   }
 }

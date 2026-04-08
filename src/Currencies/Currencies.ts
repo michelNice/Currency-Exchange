@@ -1,15 +1,15 @@
 export function populateCurrencySelect(){
     const currencyList = {
-      USD:{name:'United States dollar',symbol:'$',flag:'us'},
-      EUR:{name:'Euro',symbol:'€',flag:'eu'},
-      GBP:{name:'Pound sterling',symbol:'£',flag:'gb'},
-      BRL:{name:'Brazilian Real',symbol:'R$',flag:'br'},
-      JPY:{name:'Japanese Yen',symbol:'¥',flag:'jp'},
-      CAD:{name:'Canadian Dollar',symbol:'C$',flag:'ca'},
-      AUD:{name:'Australian Dollar',symbol:'A$',flag:'au'},
-      CHF:{name:'Swiss Franc',symbol:'CHF',flag:'ch'},
-      CNY:{name:'Chinese Yuan',symbol:'¥',flag:'cn'},
-      RUB:{name:'Russian Ruble',symbol:'₽',flag:'ru'}
+      USD:{symbol:'$',flag:'us'},
+      EUR:{symbol:'€',flag:'eu'},
+      GBP:{symbol:'£',flag:'gb'},
+      BRL:{symbol:'R$',flag:'br'},
+      JPY:{symbol:'¥',flag:'jp'},
+      CAD:{symbol:'C$',flag:'ca'},
+      AUD:{symbol:'A$',flag:'au'},
+      CHF:{symbol:'CHF',flag:'ch'},
+      CNY:{symbol:'¥',flag:'cn'},
+      RUB:{symbol:'₽',flag:'ru'}
   }
      return Object.entries(currencyList).map(([code,currency])=>{
         return {

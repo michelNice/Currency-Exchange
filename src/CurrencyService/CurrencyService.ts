@@ -1,14 +1,15 @@
-import type { currencyConversionRequest,currencyConversionResult } from "../Types/Types";
-
+import type { CurrencyConversionRequest,CurrencyConversionResult } from "../Types/Types";
 export async function convertCurrency(
-  request: currencyConversionRequest
-): Promise<currencyConversionResult>{
+  request: CurrencyConversionRequest
+): Promise<CurrencyConversionResult>{
     try{
-
     const url = "https://api.exchangerate-api.com/v4/latest/";
 
     const response = await fetch(`${url}${request.fromCurrency}`)
 
+    if(!response.ok){
+        throw new Error('Failed to fetch currency')
+    }
       const data = await response.json()
 
       const rate = data.rates[request.toCurrency]
@@ -25,11 +26,8 @@ export async function convertCurrency(
           toCurrency: request.toCurrency,
           exchangeRate: rate,
           date: new Date().toISOString()
-
        }
-
     }catch(error){
-        console.log(error)
         throw error
     }
 }
