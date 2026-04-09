@@ -184,6 +184,44 @@ body {
   color: #0F5C66;
 }
 
+.history {
+  margin-top: 1rem;
+  display: flex;
+  flex-direction: column;
+  gap: 0.6rem;
+}
+
+.history_item {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 0.9rem 1.1rem;
+  border-radius: 0.65rem;
+  background: #f3f4f6;
+  border: 1px solid #e5e7eb;
+  font-size: 0.9rem;
+  color: #1f2937;
+  transition: 0.2s ease;
+}
+.history_item:hover {
+  background: rgb(248.8285714286, 249.3428571429, 250.3714285714);
+  transform: translateX(3px);
+}
+
+.history_from {
+  font-weight: 500;
+}
+
+.history_arrow {
+  color: #6b7280;
+  font-weight: 600;
+}
+
+.history_to {
+  font-weight: 600;
+  color: #0F5C66;
+}
+
 @keyframes menuFade {
   from {
     opacity: 0;

@@ -211,6 +211,47 @@ body {
   }
 }
 
+
+.history {
+  margin-top: 1rem;
+  display: flex;
+  flex-direction: column;
+  gap: 0.6rem;
+}
+
+.history_item {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 0.9rem 1.1rem;
+  border-radius: 0.65rem;
+  background: $lightGrey;
+  border: 1px solid $border;
+  font-size: 0.9rem;
+  color: $textDark;
+  transition: 0.2s ease;
+
+  &:hover {
+    background: lighten($lightGrey, 2%);
+    transform: translateX(3px);
+  }
+}
+
+.history_from {
+  font-weight: 500;
+}
+
+.history_arrow {
+  color: $textLight;
+  font-weight: 600;
+}
+
+.history_to {
+  font-weight: 600;
+  color: $primary;
+}
+
+
 @keyframes menuFade {
   from {
     opacity: 0;

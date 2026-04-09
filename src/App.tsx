@@ -1,7 +1,8 @@
 import { useEffect, useState } from 'react'
 import {populateCurrencySelect} from '../src/Currencies/Currencies'
 import { CurrencyConverter } from './CurrencyConverter/CurrencyConverter'
-import Select from "react-select"
+import Select from "react-select";
+import type { CurrencyConversionResult } from './Types/Types';
 function App() {
   type option = {
     value: string
@@ -16,15 +17,13 @@ function App() {
   const [showFrom,setShowFrom] = useState<string>('')
   const [showError, setShowError] = useState<string>('')
   const [loading, setLoading] = useState(false)
+  const [history,setHistory] = useState<CurrencyConversionResult[]>([])
 
-  /*
-  
-   useEffect(() => {
-  if (fromCurrency && toCurrency) {
-    handleConvert()
-  }
-}, [fromCurrency, toCurrency])
-  */
+  useEffect(()=> {
+    const converter = new CurrencyConverter()
+    setHistory(converter.getHistory())
+  },[])
+
 
   function formatCurrency(value:number){
     const formatter = new Intl.NumberFormat('pt-BR', {
@@ -94,6 +93,10 @@ function App() {
            setShowError('Enter a valid value greater than 0')
           return
         }
+
+        const converter = new CurrencyConverter()
+        setHistory(converter.getHistory())
+
         setShowError('')
     }
   const swapBtn = async()=> {
@@ -175,7 +178,23 @@ function App() {
 
   </div>
       </div>
+    <h2>Conversion history</h2>
 
+<div className="history">
+  {history.slice(-3).reverse().map((item, index) => (
+    <div key={index} className="history_item">
+      <div className="history_from">
+        {formatCurrency(item.originalAmount)} {item.fromCurrency}
+      </div>
+
+      <div className="history_arrow">→</div>
+
+      <div className="history_to">
+        {formatCurrency(item.convertedAmount)} {item.toCurrency}
+      </div>
+    </div>
+  ))}
+</div>
   </>
   )
 }
