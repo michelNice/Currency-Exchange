@@ -10,7 +10,7 @@ export async function convertCurrency(
     if(!response.ok){
         throw new Error('Failed to fetch currency')
     }
-      const data = await response.json()
+     const data: any = await response.json()
 
       const rate = data.rates[request.toCurrency]
 
