@@ -33,21 +33,23 @@ function App() {
     })
     return formatter.format(value)
   }
-    const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-       setValue(e.target.value);
+  const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+  const inputValue = e.currentTarget.value
 
-       const formatter = new Intl.NumberFormat('pt-BR', {
-          minimumFractionDigits:2,
-         maximumFractionDigits:2
-       })
+  setValue(inputValue)
 
-      const digits =  e.target.value.replace(/\D/g, '')
-      const cents = parseInt(digits,10) || 0
+  const formatter = new Intl.NumberFormat('pt-BR', {
+    minimumFractionDigits: 2,
+    maximumFractionDigits: 2
+  })
 
-      const formatterValeu =  formatter.format(cents / 100)
+  const digits = inputValue.replace(/\D/g, '')
+  const cents = parseInt(digits, 10) || 0
 
-      setValue(formatterValeu)
-  };
+  const formattedValue = formatter.format(cents / 100)
+
+  setValue(formattedValue)
+}
 
   const handleConvert = async (from?: option, to?: option) => {
   const currentFrom = from || fromCurrency
