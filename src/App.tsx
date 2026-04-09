@@ -1,5 +1,5 @@
 import { useEffect, useState } from 'react'
-import {populateCurrencySelect} from '../src/Currencies/Currencies'
+import {populateCurrencySelect} from './Currencies/Currencies'
 import { CurrencyConverter } from './CurrencyConverter/CurrencyConverter'
 import Select from "react-select"
 function App() {
@@ -17,15 +17,6 @@ function App() {
   const [showError, setShowError] = useState<string>('')
   const [loading, setLoading] = useState(false)
 
-  /*
-  
-   useEffect(() => {
-  if (fromCurrency && toCurrency) {
-    handleConvert()
-  }
-}, [fromCurrency, toCurrency])
-  */
-
   function formatCurrency(value:number){
     const formatter = new Intl.NumberFormat('pt-BR', {
        minimumFractionDigits:2,
@@ -35,12 +26,10 @@ function App() {
   }
     const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
        setValue(e.target.value);
-
        const formatter = new Intl.NumberFormat('pt-BR', {
           minimumFractionDigits:2,
          maximumFractionDigits:2
        })
-
       const digits =  e.target.value.replace(/\D/g, '')
       const cents = parseInt(digits,10) || 0
 
@@ -48,7 +37,6 @@ function App() {
 
       setValue(formatterValeu)
   };
-
   const handleConvert = async (from?: option, to?: option) => {
   const currentFrom = from || fromCurrency
   const currentTo = to || toCurrency
@@ -66,7 +54,6 @@ function App() {
       toCurrency: currentTo.value,
       amount
     })
-
     setResult(formatCurrency(Converted.convertedAmount))
     setShowAmount(formatCurrency(Converted.originalAmount))
     setShowTo(Converted.toCurrency)
@@ -76,10 +63,10 @@ function App() {
     if (elapsed < 500) await new Promise(r => setTimeout(r, 500 - elapsed))
 
     setShowError('')
-    return Converted
+       return Converted
   } catch (error) {
     setShowError('Ocorreu um erro na conversão')
-    return null
+      return null
   } finally {
     setLoading(false)
   }
@@ -87,12 +74,11 @@ function App() {
   const convertBtn = async()=> {
     
       const Converted = await  handleConvert()
-
-        if(!Converted.convertedAmount ||isNaN(Converted.convertedAmount)){
+       if (!Converted || !Converted.convertedAmount || isNaN(Converted.convertedAmount)) {
           setShowError('Enter a valid value greater than 0')
-          return 
-        }
-        setShowError('')
+          return
+       }
+      setShowError('')
     }
   const swapBtn = async()=> {
      if (!fromCurrency || !toCurrency) return
@@ -102,10 +88,7 @@ function App() {
     await handleConvert(toCurrency,fromCurrency)
   setFromCurrency(newFrom)
   setToCurrency(newTo)
-
-  
   }
-
   let currencies = populateCurrencySelect()
 
   const options: option[] = currencies.map((c) => ({
@@ -118,8 +101,6 @@ function App() {
   )
 
 }))
-
-
   useEffect(()=> {
     if(options.length >= 2){
       setFromCurrency(options[0])
@@ -140,14 +121,14 @@ function App() {
               </div>
               <div className="currency_box">
                   <label htmlFor="from">From</label>
-                  <Select isSearchable={false} className="select"  classNamePrefix="select" value={fromCurrency}options={options}onChange={(selected) => setFromCurrency(selected)}/>
+                  <Select isSearchable={false} className="select"  classNamePrefix="select" value={fromCurrency}options={options}  onChange={(selected: option | null) => setFromCurrency(selected)}/>
               </div>
                <button id="swap" type="button" onClick={swapBtn}>
                  <i className="fa-solid fa-right-left"></i>
               </button>
        <div className="currency_box">
          <label htmlFor="to">To</label>
-         <Select   isSearchable={false} className="select" classNamePrefix="select"value={toCurrency}options={options}onChange={(selected) => setToCurrency(selected)}/>
+         <Select   isSearchable={false} className="select" classNamePrefix="select"value={toCurrency}options={options}  onChange={(selected: option | null) => setToCurrency(selected)}/>
       </div>
 
 
