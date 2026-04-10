@@ -131,9 +131,6 @@ function App() {
       setToCurrency(options[1])
     }
   }, [])
-
- 
-
   return (
       <>
       <div className="container_currency">
