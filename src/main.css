@@ -1,5 +1,7 @@
 * {
   box-sizing: border-box;
+  padding: 0;
+  margin: 0;
 }
 
 body {
@@ -7,10 +9,9 @@ body {
   background: linear-gradient(135deg, #eef2f3, #dfe9f3);
   display: flex;
   justify-content: center;
-  align-items: center;
   min-height: 100vh;
   padding: 1rem;
-  margin: 0;
+  margin: 1rem 0;
 }
 
 .select {
@@ -206,6 +207,10 @@ body {
 .history_item:hover {
   background: rgb(248.8285714286, 249.3428571429, 250.3714285714);
   transform: translateX(3px);
+}
+
+.history_h2 {
+  padding: 1rem 0 0 0;
 }
 
 .history_from {
