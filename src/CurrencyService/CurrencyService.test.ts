@@ -4,8 +4,9 @@ import { test, expect, jest } from "@jest/globals"
 global.fetch = jest.fn() as any
 
 test("should convert currency correctly", async () => {
-//nao entetendo esse codigo
+
   (fetch as any).mockResolvedValue({
+    ok: true,
     json: async () => ({
       rates: {
         BRL: 5
