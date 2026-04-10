@@ -14,6 +14,8 @@ $error: #dc2626;
 
 * {
   box-sizing: border-box;
+  padding: 0;
+  margin:0;
 }
 
 body {
@@ -26,10 +28,7 @@ body {
   padding: 1rem;
   margin: 0;
 }
-
-.select {
-  width: 100%;
-}
+.select {width: 100%;}
 
 .container_currency {
   width: 100%;
@@ -112,13 +111,9 @@ body {
   padding: 0 0.875rem;
   transition: 0.2s;
 
-  &:hover {
-    background: $primaryHover;
-  }
+  &:hover {background: $primaryHover;}
 
-  i {
-    font-size: 1rem;
-  }
+  i {font-size: 1rem;}
 }
 
 .select__control {
@@ -130,9 +125,7 @@ body {
   box-shadow: none !important;
   transition: 0.2s;
 
-  &:hover {
-    border-color: $primary;
-  }
+  &:hover {border-color: $primary;}
 }
 
 .select__control--is-focused {
@@ -157,25 +150,17 @@ body {
   margin: 0;
   padding: 0;
 
-  input {
-    caret-color: transparent;
-  }
+  input {caret-color: transparent;}
 }
 
-.select__indicator-separator {
-  display: none !important;
-}
+.select__indicator-separator {display: none !important;}
 
-.select__menu {
-  animation: menuFade 0.2s ease;
-}
+.select__menu {animation: menuFade 0.2s ease;}
 
 .select__option {
   transition: all 0.15s ease;
 
-  &:hover {
-    transform: translateX(4px);
-  }
+  &:hover {transform: translateX(4px);}
 }
 
 .error {
@@ -237,9 +222,8 @@ body {
   }
 }
 
-.history_from {
-  font-weight: 500;
-}
+
+.history_from {font-weight: 500;}
 
 .history_arrow {
   color: $textLight;
@@ -280,13 +264,9 @@ body {
     align-items: stretch;
   }
 
-  .container button {
-    width: 100%;
-  }
+  .container button {width: 100%;}
 
-  .box_result {
-    flex-direction: column;
-  }
+  .box_result {flex-direction: column;}
 
   .container_currency {
     width: 100%;
