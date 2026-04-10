@@ -177,24 +177,29 @@ function App() {
     </div>
 
   </div>
-      </div>
+  </div>
+
+  {history.length > 0 && (
+  <>
     <h2>Conversion history</h2>
 
-<div className="history">
-  {history.slice(-3).reverse().map((item, index) => (
-    <div key={index} className="history_item">
-      <div className="history_from">
-        {formatCurrency(item.originalAmount)} {item.fromCurrency}
-      </div>
+    <div className="history">
+      {history.slice(-3).reverse().map((item, index) => (
+        <div key={index} className="history_item">
+          <div className="history_from">
+            {formatCurrency(item.originalAmount)} {item.fromCurrency}
+          </div>
 
-      <div className="history_arrow">→</div>
+          <div className="history_arrow">→</div>
 
-      <div className="history_to">
-        {formatCurrency(item.convertedAmount)} {item.toCurrency}
-      </div>
+          <div className="history_to">
+            {formatCurrency(item.convertedAmount)} {item.toCurrency}
+          </div>
+        </div>
+      ))}
     </div>
-  ))}
-</div>
+  </>
+)}
   </>
   )
 }
